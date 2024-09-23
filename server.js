@@ -1,12 +1,14 @@
-const http = require('http');
+import app from "./TodoList/app";
+import conexao from "./TodoList/conexao";
+const PORT = 3000;
 
-const server = http.createServer((req, res) => {
-    console.log(req.method);
-    console.log(req.url);
-    res.statusCode = 200;
-    res.end('<h1>Hello World</h1>')
-});
-
-server.listen(3000, () => {
-    console.log('Servidor Ativo!');
+conexao.connect((error) => {
+  if (error) {
+    console.log(`Falha na conexão ${error}`);
+  } else {
+    console.log("Conexão realizada com sucesso");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  }
 });
